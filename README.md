@@ -71,21 +71,23 @@ Before getting started with our main application, we will play with redis.
 
 
 ```js | {type: 'script'}
-const { promisify } = require("util");
 const redis = require("redis");
 
 // Prepare client connection
 let client = redis.createClient(6379, '192.168.44.81', {});
-const getAsync = promisify(client.get).bind(client);
-const setAsync = promisify(client.set).bind(client);
 
 // Set and retrieve a key
-let status = await setAsync("hello", "world 2");
-console.log(`Set: ${status}`);
-console.log( await getAsync("hello") );
+client.set( "hello", "redis", (err, res) => {
 
-// Terminate client connection (otherwise we'd hang)
-client.end(true);
+  console.log(`Set: "hello" => ${res}`);
+
+  client.get("hello", (err, res) => {
+    console.log( `Get: "hello" => "${res}"`);
+    
+    // Terminate client connection (otherwise we'd hang)
+    client.end(true);
+  })
+});
 ```
 
 
