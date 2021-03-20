@@ -9,9 +9,14 @@ In particular, we will focus on using redis to construct basic infrastructure co
 
 ## Workshop
 
-### Before you start
+### Before you get started
 
-* Clone this repo and change directory to the repo.
+Import this as a notebook or clone this repo locally. Also, ensure you [install latest version of docable](https://github.com/ottomatica/docable-notebooks/blob/master/docs/install.md)!
+
+```bash
+docable-server import https://github.com/CSC-DevOps/Caches
+```
+
 * Pull `queues` virtual machine image which has the prerequisites you need for this workshop (nodejs, redis):
   ```
   bakerx pull CSC-DevOps/Images#Spring2020 queues
@@ -21,6 +26,7 @@ In particular, we will focus on using redis to construct basic infrastructure co
   bakerx run queues queues --ip 192.168.44.81 --sync
   ```
 * Run `bakerx ssh queues` to connect to the virtual machine.
+
 
 ### Redis
 
