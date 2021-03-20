@@ -41,6 +41,28 @@ client.set("key", "value");
 client.get("key", function(err,value){ console.log(value)});
 ```
 
+🎯 Try it out!
+
+```js | {type: 'script'}
+const redis = require("redis");
+
+// Prepare client connection
+let client = redis.createClient(6379, '192.168.44.81', {});
+
+// Set and retrieve a key
+client.set( "hello", "redis", (err, res) => {
+
+  console.log(`Set: "hello" => ${res}`);
+
+  client.get("hello", (err, res) => {
+    console.log( `Get: "hello" => "${res}"`);
+    
+    // Terminate client connection (otherwise we'd hang)
+    client.end(true);
+  })
+});
+```
+
 ### A simple web server
 
 In this workshop we use [express](http://expressjs.com/) to make a simple web server:
@@ -66,30 +88,6 @@ app.get('/', function(req, res) {
 This functionality already exists in [main.js](./basics/main.js).
 
 ### Basics
-
-Before getting started with our main application, we will play with redis.
-
-
-```js | {type: 'script'}
-const redis = require("redis");
-
-// Prepare client connection
-let client = redis.createClient(6379, '192.168.44.81', {});
-
-// Set and retrieve a key
-client.set( "hello", "redis", (err, res) => {
-
-  console.log(`Set: "hello" => ${res}`);
-
-  client.get("hello", (err, res) => {
-    console.log( `Get: "hello" => "${res}"`);
-    
-    // Terminate client connection (otherwise we'd hang)
-    client.end(true);
-  })
-});
-```
-
 
 
 ##### Task 1: An expiring cache
