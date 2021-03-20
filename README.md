@@ -3,7 +3,7 @@ Infrastructure Components
 
 ![build](https://travis-ci.org/CSC-DevOps/Queues.svg?branch=master)
 
-In this workshop, we'll cover the basics of adding infrastructure components to a web application.
+In this workshop, we'll cover the basics of adding infrastructure components to a web application, meow.io.
 
 In particular, we will focus on using redis to construct basic infrastructure components, such as a cache and queue, and intergrating them into a web application.
 
@@ -17,16 +17,13 @@ Import this as a notebook or clone this repo locally. Also, ensure you [install 
 docable-server import https://github.com/CSC-DevOps/Caches
 ```
 
-* Pull `queues` virtual machine image which has the prerequisites you need for this workshop (nodejs, redis):
-  ```
-  bakerx pull CSC-DevOps/Images#Spring2020 queues
-  ```
-* Create a new virtual machine using the `queues` image:
-  ```bash
-  bakerx run queues queues --ip 192.168.44.81 --sync
-  ```
-* Run `bakerx ssh queues` to connect to the virtual machine.
+Create a new virtual machine that will be configured with redis and node.js:
 
+```bash | {type: 'command'}
+bakerx run
+```
+
+> Note: Run `bakerx ssh meow.io` to connect to the virtual machine.
 
 ### Redis
 
@@ -70,11 +67,28 @@ This functionality already exists in [main.js](./basics/main.js).
 
 ### Basics
 
-Inside the VM, go to the sync folder containing this repo and install npm dependencies:
-  ```bash
-  cd /bakerx/basics
-  npm install
-  ```
+Before getting started with our main application, we will play with redis.
+
+
+```js | {type: 'script'}
+const { promisify } = require("util");
+const redis = require("redis");
+
+// Prepare client connection
+let client = redis.createClient(6379, '192.168.44.81', {});
+const getAsync = promisify(client.get).bind(client);
+const setAsync = promisify(client.set).bind(client);
+
+// Set and retrieve a key
+let status = await setAsync("hello", "world 2");
+console.log(`Set: ${status}`);
+console.log( await getAsync("hello") );
+
+// Terminate client connection (otherwise we'd hang)
+client.end(true);
+```
+
+
 
 ##### Task 1: An expiring cache
 
