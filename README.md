@@ -31,7 +31,7 @@ You will be using [redis server](http://redis.io/) and [node-redis client](https
 
 ```js
 const redis = require('redis');
-const client = redis.createClient(6379, '127.0.0.1', {});
+const client = redis.createClient(6379, '127.0.0.1', { connect_timeout: 5000 });
 ```
 
 In general, you can run all the [redis commands](https://redis.io/commands) in the following manner: `client.CMD(args)`. For example:
