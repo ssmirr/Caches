@@ -101,3 +101,7 @@ From our host machine, change into `cd basics`, and then `npm install.` We will 
 When you are done, use <kbd>Control</kbd>+<kbd>C</kbd> to stop the server.
 
 
+## Next
+
+We will get more hands on practice with express and redis in, Part 2. [Using express and redis](Basics.md).
+

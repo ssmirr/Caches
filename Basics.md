@@ -4,9 +4,32 @@ Part 1. [Setup and Overview](README.md)
 Part 2. [Using express and redis](Basics.md) ⬅️    
 Part 3. [Using caches and queues in meow.io](Meow.md)  
 
-We will 
+### Creating a simple route in express
 
-Modify the code to 
+Change into the `cd basics/` directory. Start the service using `npx nodemon index.js`, which will reload whenever you change any of the files.
+
+``` | {type: 'terminal'}
+```
+
+Modify the code to add a new route, `/dayofweek` that will return the current day of the week.  *Hint:* 
+
+```js | {type: 'file', path: 'basics/routes/simple.js'} 
+const routes = require('express').Router();
+
+// Add your route here...
+
+module.exports = routes;
+```
+
+Try accessing your endpoint!
+
+```bash | {type: 'command', failed_when: 'exitCode!=0'}
+curl -q localhost:3003/dayofweek
+```
+
+### Creating a simple storage api
+
+nonce service.
 
 ```js | {type: 'file', path: 'basics/routes/api.js'} 
 const routes = require('express').Router();

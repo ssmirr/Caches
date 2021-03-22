@@ -5,6 +5,8 @@ Part 1. [Setup and Overview](README.md)
 Part 2. [Using express and redis](Basics.md)     
 Part 3. [Using caches and queues in meow.io](Meow.md) ⬅️   
 
+‼️ TODO: git clone meow.io in bakerx script and remove local copy.
+
 ### Meow.io
 
 Now that you have a better handle on using express and redis, let's see if we do tasks on a simple app, meow.io.
