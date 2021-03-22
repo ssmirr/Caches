@@ -19,7 +19,7 @@ docable-server import https://github.com/CSC-DevOps/Caches
 
 Create a new virtual machine that will be configured with redis and node.js:
 
-```bash | {type: 'command'}
+```bash | {type: 'command', failed_when: 'exitCode != 0'}
 bakerx run
 ```
 
@@ -31,7 +31,7 @@ You will be using [redis server](http://redis.io/) and [node-redis client](https
 
 ```js
 const redis = require('redis');
-const client = redis.createClient(6379, '127.0.0.1', { connect_timeout: 5000 });
+const client = redis.createClient(6379, '127.0.0.1');
 ```
 
 In general, you can run all the [redis commands](https://redis.io/commands) in the following manner: `client.CMD(args)`. For example:
@@ -47,7 +47,7 @@ client.get("key", function(err,value){ console.log(value)});
 const redis = require("redis");
 
 // Prepare client connection
-let client = redis.createClient(6379, '192.168.44.81', {});
+let client = redis.createClient(6379, '192.168.44.81', { connect_timeout: 5000 });
 
 // Set and retrieve a key
 client.set( "hello", "redis", (err, res) => {
@@ -85,7 +85,19 @@ app.get('/', function(req, res) {
 })
 ```
 
-This functionality already exists in [main.js](./basics/main.js).
+🎯 Try it out!
+
+From our host machine, change into `cd basics`, and then `npm install.` We will then start the server with `node index.js`.
+
+``` | {type: 'terminal' }
+```
+
+🌏 Visit the web server on http://localhost:3003/ in another tab or click the <kbd>Reload</kbd> button to load the server:
+
+<button onclick="window.frames['serviceFrameSend'].src+='';">Reload</button>
+<iframe id="serviceFrameSend" src="http://localhost:3003/" width="800" height="200"  frameborder="1"></iframe>
+
+When you are done, use <kbd>Control</kbd>+<kbd>C</kbd> to stop the server.
 
 ### Basics
 
@@ -105,7 +117,7 @@ When [`/get`](http://192.168.44.81:3003/get) is visited (i.e. GET request), fetc
 
 Create a new route, `/recent`, which will display the most recently visited sites.
 
-There is already a [global hook (middleware) setup](./basics/main.js#L14-L21), which will allow you to see each site that is requested:
+There is already a [global hook (middleware) setup](./basics/index.js), which will allow you to see each site that is requested:
 
 ```js
 app.use(function (req, res, next) {

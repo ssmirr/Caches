@@ -6,7 +6,7 @@ const fs = require('fs');
 
 // REDIS
 const redis = require('redis');
-let client = redis.createClient(6379, '127.0.0.1', {});
+let client = redis.createClient(6379, '192.168.44.81', {});
 
 ///////////// GLOBAL HOOK
 
