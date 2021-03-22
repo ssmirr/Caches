@@ -7,7 +7,7 @@ In this workshop, we'll cover the basics of adding infrastructure components to 
 
 In particular, we will focus on using redis to construct basic infrastructure components, such as a cache and queue, and intergrating them into a web application.
 
-## Workshop
+## Setup
 
 ### Before you get started
 
@@ -19,13 +19,13 @@ docable-server import https://github.com/CSC-DevOps/Caches
 
 Create a new virtual machine that will be configured with redis and node.js:
 
-```bash | {type: 'command', failed_when: 'exitCode != 0'}
+```bash | {type: 'command', stream: true, failed_when: 'exitCode != 0'}
 bakerx run
 ```
 
 > Note: Run `bakerx ssh meow.io` to connect to the virtual machine.
 
-### Redis
+### A simple in-memory data store
 
 You will be using [redis server](http://redis.io/) and [node-redis client](https://github.com/mranney/node_redis) to build some simple infrastructure components:
 
@@ -99,7 +99,45 @@ From our host machine, change into `cd basics`, and then `npm install.` We will 
 
 When you are done, use <kbd>Control</kbd>+<kbd>C</kbd> to stop the server.
 
-### Basics
+## Workshop
+
+We will 
+
+Modify the code to 
+
+```js | {type: 'file', path: 'basics/routes/api.js'} 
+const routes = require('express').Router();
+
+// REDIS
+const redis = require('redis');
+let client = redis.createClient(6379, '192.168.44.81', {});
+  
+// Task 1 ===========================================
+
+// Task 2 ============================================
+
+module.exports = routes;
+```
+
+``` bash | {type: 'command'}
+curl localhost:3003/
+```
+
+``` bash | {type: 'command'}
+curl localhost:3003/set/mykey/hello
+```
+
+
+Cache key for 10 seconds.
+
+``` bash | {type: 'command'}
+curl localhost:3003/cache/hi/message
+```
+
+Check key
+``` bash | {type: 'command'}
+curl localhost:3003/get/hi
+```
 
 
 ##### Task 1: An expiring cache
@@ -120,8 +158,14 @@ Create a new route, `/recent`, which will display the most recently visited site
 There is already a [global hook (middleware) setup](./basics/index.js), which will allow you to see each site that is requested:
 
 ```js
-app.use(function (req, res, next) {
-  ...
+// Add hook to make it easier to get all visited URLS.
+routes.use(function (req, res, next) {
+    console.log(req.method, req.url);
+
+    // You can store visited pages here...
+    
+    next(); // Passing the request to the next handler in the stack.
+});
 ```
 
 Use [`LPUSH`](https://redis.io/commands/lpush), [`LTRIM`](https://redis.io/commands/ltrim), and[`LRANGE`](https://redis.io/commands/lrange) redis commands to store the most recent 5 sites visited, and return that to the client.
