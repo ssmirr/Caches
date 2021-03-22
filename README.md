@@ -1,11 +1,12 @@
 Infrastructure Components
 =========================
 
-![build](https://travis-ci.org/CSC-DevOps/Queues.svg?branch=master)
-
 In this workshop, we'll cover the basics of adding infrastructure components to a web application, meow.io.
-
 In particular, we will focus on using redis to construct basic infrastructure components, such as a cache and queue, and intergrating them into a web application.
+
+Part 1. [Setup and Overview](README.md) ⬅️  
+Part 2. [Using express and redis](Basics.md)  
+Part 3. [Using caches and queues in meow.io](Meow.md)  
 
 ## Setup
 

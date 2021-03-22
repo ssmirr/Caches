@@ -1,5 +1,11 @@
 
-## Meow.io
+## Using caches and queues in meow.io
+
+Part 1. [Setup and Overview](README.md)    
+Part 2. [Using express and redis](Basics.md)     
+Part 3. [Using caches and queues in meow.io](Meow.md) ⬅️   
+
+### Meow.io
 
 Now that you have a better handle on using express and redis, let's see if we do tasks on a simple app, meow.io.
 This is a simple 3-tier node.js application, with a view, app layer, and database.

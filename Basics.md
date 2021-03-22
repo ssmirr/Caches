@@ -1,4 +1,8 @@
-## Workshop
+## Using express and redis
+
+Part 1. [Setup and Overview](README.md)    
+Part 2. [Using express and redis](Basics.md) ⬅️    
+Part 3. [Using caches and queues in meow.io](Meow.md)  
 
 We will 
 
